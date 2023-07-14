@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<head>
+  <title>Card Game</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<style>
+  .container {
+    border: 2px solid ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 500px;
+    height: 500px;
+    gap: 50px;
+    margin-inline: auto;
+}
+
+.card {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: lightblue;
+  border: 1px solid black;
+  margin: 10px;
+  font-size: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.5s ease-in-out;
+  transform-style: preserve-3d;
+  background-image: linear-gradient(to right,orange,rgb(248, 248, 252),rgb(52, 228, 93));
+
+}
+
+.closed {
+  background-color: lightgray;
+  transform: rotateY(360deg);
+}
+
+.opened {
+  background-color: lightgreen;
+  transform: rotateY(0deg);
+  z-index: 1;
+}
+.retry-button{
+  margin: 19px 550px;
+  border: 2px solid red;
+  cursor: pointer;
+}
+[data-content]{
+  margin-top: 30px;
+}
+</style>
+<body>
+  <div class="container">
+    <div class="card closed">
+      <div class="card-content" data-content="Rs 100"></div>
+    </div>
+    <div class="card closed">
+      <div class="card-content" data-content="RS 15 "></div>
+    </div>
+    <div class="card closed">
+      <div class="card-content" data-content="RS 150"></div>
+    </div>
+<div class="card closed">
+      <div class="card-content" data-content="RS 10"></div>
+    </div>
+<div class="card closed">
+      <div class="card-content" data-content="RS 58"></div>
+    </div>
+<div class="card closed">
+      <div class="card-content" data-content="RS300 "></div>
+    </div>
+<div class="card closed">
+      <div class="card-content" data-content="RS400 "></div>
+    </div>
+<div class="card closed">
+      <div class="card-content" data-content="RS 600"></div>
+    </div>
+<div class="card closed">
+      <div class="card-content" data-content="RS 1"></div>
+    </div>
+   
+  </div>
+  
+    <button style="height: 40px;width: 150px;" class="retry-button" onclick="retryPage()">Retry</button>
+  
+</body>
+  <script>
+    const cards = document.querySelectorAll('.card');
+    let canClick = true;
+    let openedCard = null;
+
+  cards.forEach(card => {
+  card.addEventListener('click', () => {
+    if (!canClick || card.classList.contains('opened')) {
+      return;
+    }
+
+    cards.forEach(otherCard => {
+      otherCard.classList.remove('opened');
+      otherCard.classList.add('closed');
+      otherCard.querySelector('.card-content').textContent = ""; // Clear the content of other cards
+    });
+
+    card.classList.remove('closed');
+    card.classList.add('opened');
+    const cardContent = card.querySelector('.card-content');
+    cardContent.textContent = fu() // Set the content based on the data attribute
+    openedCard = card;
+    canClick = false;
+  });
+});
+
+function retryPage() {
+  canClick = true;
+  openedCard = null;
+  cards.forEach(card => {
+    card.classList.remove('opened');
+    card.classList.add('closed');
+    card.querySelector('.card-content').textContent = ""; // Clear the content of all cards
+  });
+}
+let fu =()=>{ 
+let arr =["Rs 10","Rs 20","Rs 30","Rs 40","Rs 50","Rs 60","Rs 70","Rs 80"]
+    for(let i=0;i<6;i++){
+        var a;
+        a = arr[Math.floor(Math.random()*7)];
+    
+    }
+    return a;
+  }
+
+  </script>
+
+</html>
